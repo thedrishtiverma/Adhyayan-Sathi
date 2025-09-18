@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adhyayan Sathi - Educational Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="page active">
+        <header class="landing-header">
+            <nav class="container">
+                <div class="nav-brand">
+                    <h2>Adhyayan Sathi</h2>
+                    <span class="tagline">Educational Excellence Platform</span>
+                </div>
+                <div class="nav-links">
+                    <button class="btn btn--outline" onclick="showLoginModal()">Login</button>
+                    <button class="btn btn--primary" onclick="showRegisterModal()">Register</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="landing-main">
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Connect. Learn. Succeed.</h1>
+                        <p>The comprehensive platform connecting students, alumni, universities, and organizations for educational excellence.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn--primary btn--lg" onclick="showLoginModal()">Get Started</button>
+                            <button class="btn btn--outline btn--lg" onclick="scrollToFeatures()">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="search-section">
+                <div class="container">
+                    <div class="search-card card">
+                        <h3>Find Universities & Colleges</h3>
+                        <div class="search-form">
+                            <div class="search-input-group">
+                                <input type="text" id="university-search" class="form-control" placeholder="Search by name, code, state, or region...">
+                                <button class="btn btn--primary" onclick="searchUniversities()">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                        <div id="search-results" class="search-results"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="features-section">
+                <div class="container">
+                    <h2>Platform Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card card">
+                            <div class="feature-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4>Student Portal</h4>
+                            <p>Certificate management, credit tracking, notifications, and ERP integration.</p>
+                        </div>
+                        <div class="feature-card card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Alumni Network</h4>
+                            <p>Mentorship programs, networking events, and career guidance.</p>
+                        </div>
+                        <div class="feature-card card">
+                            <div class="feature-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h4>University Portal</h4>
+                            <p>Student management, certificate approvals, and institutional analytics.</p>
+                        </div>
+                        <div class="feature-card card">
+                            <div class="feature-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h4>Organization Hub</h4>
+                            <p>Recruitment, events, partnerships, and certificate verification.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="architecture-section">
+                <div class="container">
+                    <h2>System Architecture</h2>
+                    <div class="architecture-display">
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/d4fedcff74bcebe96c444061292b0cfa/6456bdb8-05e5-4ddc-aac8-297ea6a41cdb/d541e7c7.png" alt="System Architecture" class="architecture-image">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login to Adhyayan Sathi</h3>
+                <button class="modal-close" onclick="hideModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-type-tabs">
+                    <button class="tab-btn active" onclick="switchUserType('student')">Student</button>
+                    <button class="tab-btn" onclick="switchUserType('alumni')">Alumni</button>
+                    <button class="tab-btn" onclick="switchUserType('admin')">College Admin</button>
+                    <button class="tab-btn" onclick="switchUserType('organization')">Organization</button>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label class="form-label">Email / User ID</label>
+                        <input type="text" id="login-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                </form>
+                
+                <div class="login-footer">
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <div class="social-login">
+                        <p>Or login with:</p>
+                        <div class="social-buttons">
+                            <button class="btn-social google"><i class="fab fa-google"></i></button>
+                            <button class="btn-social linkedin"><i class="fab fa-linkedin"></i></button>
+                            <button class="btn-social github"><i class="fab fa-github"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register for Adhyayan Sathi</h3>
+                <button class="modal-close" onclick="hideModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Choose your user type to get started:</p>
+                <div class="register-options">
+                    <button class="register-option-btn" onclick="alert('Registration form would appear here')">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Student</span>
+                    </button>
+                    <button class="register-option-btn" onclick="alert('Registration form would appear here')">
+                        <i class="fas fa-users"></i>
+                        <span>Alumni</span>
+                    </button>
+                    <button class="register-option-btn" onclick="alert('Registration form would appear here')">
+                        <i class="fas fa-university"></i>
+                        <span>College/University</span>
+                    </button>
+                    <button class="register-option-btn" onclick="alert('Registration form would appear here')">
+                        <i class="fas fa-building"></i>
+                        <span>Organization</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="page dashboard">
+        <div class="dashboard-layout">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Adhyayan Sathi</h3>
+                    <p class="user-name">Welcome, Drishti</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" onclick="switchStudentTab('overview')">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchStudentTab('profile')">
+                        <i class="fas fa-user"></i> My Profile
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchStudentTab('certificates')">
+                        <i class="fas fa-certificate"></i> Certificates
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchStudentTab('credits')">
+                        <i class="fas fa-star"></i> Credit Sheet
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchStudentTab('notifications')">
+                        <i class="fas fa-bell"></i> Notifications
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchStudentTab('erp')">
+                        <i class="fas fa-external-link-alt"></i> ERP Portal
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="btn btn--outline btn--full-width" onclick="logout()">Logout</button>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <!-- Overview Tab -->
+                <div id="student-overview" class="tab-content active">
+                    <div class="dashboard-header">
+                        <h2>Student Dashboard</h2>
+                        <p>Welcome back, Drishti Sharma!</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>3</h3>
+                                <p>Total Certificates</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>85</h3>
+                                <p>Credit Score</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>2</h3>
+                                <p>New Notifications</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-mockup">
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/629ad4d2-3c48-4ec5-aac0-683e43405329.png" alt="Student Dashboard Mockup" class="mockup-image">
+                    </div>
+                </div>
+
+                <!-- Certificates Tab -->
+                <div id="student-certificates" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Certificate Manager</h2>
+                        <button class="btn btn--primary" onclick="showUploadModal()">Upload Certificate</button>
+                    </div>
+                    
+                    <div class="certificates-list">
+                        <div class="certificate-item card">
+                            <div class="certificate-info">
+                                <h4>Course Completion Certificate</h4>
+                                <p>ID: CERT001</p>
+                                <small>Uploaded: Jan 15, 2024</small>
+                            </div>
+                            <div class="certificate-status">
+                                <span class="status status--success">Approved</span>
+                            </div>
+                        </div>
+                        <div class="certificate-item card">
+                            <div class="certificate-info">
+                                <h4>Internship Certificate</h4>
+                                <p>ID: CERT002</p>
+                                <small>Uploaded: Feb 1, 2024</small>
+                            </div>
+                            <div class="certificate-status">
+                                <span class="status status--warning">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other tabs content will be populated by JavaScript -->
+                <div id="student-profile" class="tab-content">
+                    <h2>My Profile</h2>
+                    <div class="profile-card card">
+                        <h3>Drishti Sharma</h3>
+                        <p>B.Tech Computer Science, 3rd Year</p>
+                        <p>Indian Institute of Technology Delhi</p>
+                        <p>Email: drishti@example.com</p>
+                    </div>
+                </div>
+
+                <div id="student-credits" class="tab-content">
+                    <h2>Credit Sheet</h2>
+                    <div class="credit-display card">
+                        <h3>Current Credit Score: 85</h3>
+                        <div class="credit-progress">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                        <p>Excellent performance! Keep up the good work.</p>
+                    </div>
+                </div>
+
+                <div id="student-notifications" class="tab-content">
+                    <h2>Notifications</h2>
+                    <div class="notifications-list">
+                        <div class="notification-item card">
+                            <h4>New Course Registration Open</h4>
+                            <p>Registration for summer courses is now open</p>
+                            <small>Feb 1, 2024</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="student-erp" class="tab-content">
+                    <h2>ERP Portal</h2>
+                    <div class="erp-links card">
+                        <h3>Quick Links</h3>
+                        <a href="#" class="btn btn--outline" target="_blank">Academic Records</a>
+                        <a href="#" class="btn btn--outline" target="_blank">Fee Management</a>
+                        <a href="#" class="btn btn--outline" target="_blank">Timetable</a>
+                        <a href="#" class="btn btn--outline" target="_blank">Exam Results</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- College Admin Dashboard -->
+    <div id="admin-dashboard" class="page dashboard">
+        <div class="dashboard-layout">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Adhyayan Sathi</h3>
+                    <p class="user-name">Admin Portal</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" onclick="switchAdminTab('overview')">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAdminTab('certificates')">
+                        <i class="fas fa-check-circle"></i> Certificate Approvals
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAdminTab('notifications')">
+                        <i class="fas fa-bullhorn"></i> Send Notifications
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAdminTab('students')">
+                        <i class="fas fa-users"></i> Student Management
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAdminTab('analytics')">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="btn btn--outline btn--full-width" onclick="logout()">Logout</button>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <div id="admin-overview" class="tab-content active">
+                    <div class="dashboard-header">
+                        <h2>College Admin Dashboard</h2>
+                        <p>Indian Institute of Technology Delhi</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>1</h3>
+                                <p>Pending Certificates</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>2</h3>
+                                <p>Active Students</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>95%</h3>
+                                <p>Placement Rate</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-mockup">
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/84deffe5-7a97-4dd3-8697-a0037eb165d4.png" alt="Admin Dashboard Mockup" class="mockup-image">
+                    </div>
+                </div>
+
+                <div id="admin-certificates" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Certificate Approvals</h2>
+                        <p>Review and approve student certificate requests</p>
+                    </div>
+                    
+                    <div class="approval-list">
+                        <div class="approval-item card">
+                            <div class="approval-info">
+                                <h4>Internship Certificate</h4>
+                                <p>Student: Drishti Sharma (ID: CERT002)</p>
+                                <small>Submitted: Feb 1, 2024</small>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn btn--primary btn--sm" onclick="approveCertificate('CERT002')">Approve</button>
+                                <button class="btn btn--outline btn--sm" onclick="rejectCertificate('CERT002')">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-notifications" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Send Notifications</h2>
+                    </div>
+                    
+                    <div class="notification-form card">
+                        <div class="form-group">
+                            <label class="form-label">Notification Title</label>
+                            <input type="text" id="notification-title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea id="notification-content" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Audience</label>
+                            <select id="notification-audience" class="form-control">
+                                <option value="students">All Students</option>
+                                <option value="alumni">Alumni</option>
+                                <option value="public">Public Profile</option>
+                            </select>
+                        </div>
+                        <button class="btn btn--primary" onclick="sendNotification()">Send Notification</button>
+                    </div>
+                </div>
+
+                <div id="admin-students" class="tab-content">
+                    <h2>Student Management</h2>
+                    <div class="students-list">
+                        <div class="student-item card">
+                            <h4>Drishti Sharma</h4>
+                            <p>B.Tech Computer Science, 3rd Year</p>
+                            <p>Credit Score: 85</p>
+                        </div>
+                        <div class="student-item card">
+                            <h4>Rahul Kumar</h4>
+                            <p>B.Tech Mechanical, 4th Year</p>
+                            <p>Credit Score: 92</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-analytics" class="tab-content">
+                    <h2>Analytics</h2>
+                    <div class="analytics-cards">
+                        <div class="card">
+                            <h3>Feature Access Matrix</h3>
+                            <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/d4fedcff74bcebe96c444061292b0cfa/bf61b588-0679-44c8-8c33-decf9cbbff35/dbb443bc.png" alt="Feature Matrix" class="chart-image">
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Alumni Dashboard -->
+    <div id="alumni-dashboard" class="page dashboard">
+        <div class="dashboard-layout">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Adhyayan Sathi</h3>
+                    <p class="user-name">Welcome, Priya</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" onclick="switchAlumniTab('overview')">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAlumniTab('profile')">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAlumniTab('mentorship')">
+                        <i class="fas fa-hands-helping"></i> Mentorship
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAlumniTab('network')">
+                        <i class="fas fa-network-wired"></i> Network
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchAlumniTab('events')">
+                        <i class="fas fa-calendar"></i> Events
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="btn btn--outline btn--full-width" onclick="logout()">Logout</button>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <div id="alumni-overview" class="tab-content active">
+                    <div class="dashboard-header">
+                        <h2>Alumni Dashboard</h2>
+                        <p>Welcome back, Priya Singh!</p>
+                    </div>
+                    
+                    <div class="profile-completion card">
+                        <h3>Profile Completion</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                        <p>85% Complete - Add more details to connect with students</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>3</h3>
+                                <p>Connection Requests</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>5</h3>
+                                <p>Mentorship Sessions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="alumni-profile" class="tab-content">
+                    <h2>Alumni Profile</h2>
+                    <div class="profile-card card">
+                        <h3>Priya Singh</h3>
+                        <p>Class of 2020</p>
+                        <p>Software Engineer at Google</p>
+                        <p>Expertise: Software Development, Machine Learning</p>
+                        <div class="social-links">
+                            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="alumni-mentorship" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Mentorship Program</h2>
+                        <div class="mentorship-toggle">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="mentorship-available" checked> Available for Mentorship
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mentorship-requests card">
+                        <h3>Recent Mentorship Requests</h3>
+                        <div class="request-item">
+                            <p><strong>Drishti Sharma</strong> - Computer Science Student</p>
+                            <p>Interested in: Software Development Career Guidance</p>
+                            <div class="request-actions">
+                                <button class="btn btn--primary btn--sm">Accept</button>
+                                <button class="btn btn--outline btn--sm">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="alumni-network" class="tab-content">
+                    <h2>Alumni Network</h2>
+                    <div class="network-stats card">
+                        <h3>Your Network</h3>
+                        <p>Connected with 25 alumni from your batch</p>
+                        <button class="btn btn--primary">Find Alumni</button>
+                    </div>
+                </div>
+
+                <div id="alumni-events" class="tab-content">
+                    <h2>Alumni Events</h2>
+                    <div class="events-list">
+                        <div class="event-item card">
+                            <h4>Alumni Networking Event</h4>
+                            <p>Date: March 20, 2024</p>
+                            <p>Location: Bangalore</p>
+                            <button class="btn btn--primary btn--sm">RSVP</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Organization Dashboard -->
+    <div id="organization-dashboard" class="page dashboard">
+        <div class="dashboard-layout">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Adhyayan Sathi</h3>
+                    <p class="user-name">TechCorp India</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" onclick="switchOrgTab('overview')">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchOrgTab('recruitment')">
+                        <i class="fas fa-briefcase"></i> Recruitment
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchOrgTab('events')">
+                        <i class="fas fa-calendar"></i> Events
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchOrgTab('verification')">
+                        <i class="fas fa-certificate"></i> Certificate Verification
+                    </a>
+                    <a href="#" class="nav-item" onclick="switchOrgTab('collaborations')">
+                        <i class="fas fa-handshake"></i> Collaborations
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="btn btn--outline btn--full-width" onclick="logout()">Logout</button>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <div id="org-overview" class="tab-content active">
+                    <div class="dashboard-header">
+                        <h2>Organization Dashboard</h2>
+                        <p>TechCorp India - IT Services</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>5</h3>
+                                <p>Active Job Postings</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>2</h3>
+                                <p>Upcoming Events</p>
+                            </div>
+                        </div>
+                        <div class="stat-card card">
+                            <div class="stat-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>Partner Universities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="org-recruitment" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Recruitment</h2>
+                        <button class="btn btn--primary" onclick="showJobPostModal()">Post New Job</button>
+                    </div>
+                    
+                    <div class="job-postings">
+                        <div class="job-item card">
+                            <h4>Software Developer</h4>
+                            <p>Experience: 0-2 years</p>
+                            <p>Posted: Feb 1, 2024</p>
+                            <p>Applications: 15</p>
+                            <button class="btn btn--outline btn--sm">View Applications</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="org-events" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Events</h2>
+                        <button class="btn btn--primary" onclick="showEventModal()">Create Event</button>
+                    </div>
+                    
+                    <div class="events-list">
+                        <div class="event-item card">
+                            <h4>Tech Career Fair 2024</h4>
+                            <p>Date: March 15, 2024</p>
+                            <p>Location: Delhi</p>
+                            <p>Max Participants: 500</p>
+                            <button class="btn btn--outline btn--sm">Edit Event</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="org-verification" class="tab-content">
+                    <div class="tab-header">
+                        <h2>Certificate Verification</h2>
+                    </div>
+                    
+                    <div class="verification-tool card">
+                        <h3>Verify Student Certificate</h3>
+                        <div class="form-group">
+                            <label class="form-label">Enter Certificate ID</label>
+                            <input type="text" id="verify-cert-id" class="form-control" placeholder="e.g., CERT001">
+                        </div>
+                        <button class="btn btn--primary" onclick="verifyCertificate()">Verify Certificate</button>
+                        <div id="verification-result" class="verification-result"></div>
+                    </div>
+                </div>
+
+                <div id="org-collaborations" class="tab-content">
+                    <h2>University Collaborations</h2>
+                    <div class="collaborations-list">
+                        <div class="collaboration-item card">
+                            <h4>Indian Institute of Technology Delhi</h4>
+                            <p>Partnership since: 2020</p>
+                            <p>Active projects: 3</p>
+                            <button class="btn btn--outline btn--sm">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Upload Certificate Modal -->
+    <div id="upload-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Certificate</h3>
+                <button class="modal-close" onclick="hideModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Certificate Type</label>
+                    <select class="form-control">
+                        <option>Course Completion</option>
+                        <option>Internship Certificate</option>
+                        <option>Project Certificate</option>
+                        <option>Achievement Certificate</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Upload File</label>
+                    <input type="file" class="form-control" accept=".pdf,.jpg,.png">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" rows="3" placeholder="Brief description of the certificate..."></textarea>
+                </div>
+                <button class="btn btn--primary btn--full-width" onclick="uploadCertificate()">Upload Certificate</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
