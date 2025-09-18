@@ -1,1 +1,1 @@
-# Adhyayan-Sathi
+# Adhyayan Sathi
